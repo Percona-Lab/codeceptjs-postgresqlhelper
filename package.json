@@ -1,0 +1,30 @@
+{
+  "name": "codeceptjs-postgresqlhelper",
+  "version": "1.0.1",
+  "description": "CodeceptJS helper to execute queries against PostgreSQL database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Percona-Lab/codeceptjs-postgresqlhelper.git"
+  },
+  "keywords": [
+    "codeceptjs",
+    "postgresql",
+    "postgres",
+    "postgresql",
+    "helper"
+  ],
+  "author": "",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Percona-Lab/codeceptjs-postgresqlhelper/issues"
+  },
+  "homepage": "https://github.com/Percona-Lab/codeceptjs-postgresqlhelper#readme",
+  "dependencies": {
+    "codeceptjs": "^3.3.3",
+    "pg": "^8.7.3"
+  }
+}
