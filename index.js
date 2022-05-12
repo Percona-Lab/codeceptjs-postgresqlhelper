@@ -76,15 +76,19 @@ class PostgresqlDBHelper extends Helper {
   }
 
   /**
-   * Executes query against connected PostgreSQL and returns result
+   * Executes query against a specified connection PostgreSQL and returns result
    * @returns {Promise<void>}
    * @param query SQL query to execute
    */
-  async pgExecuteQuery(query) {
-    return await this.client.query(query)
+  async pgExecuteQuery(query, connection) {
+    await this.pgConnect(connection);
+    const rows = await this.client.query(query)
         .catch((e) => {
+          this.pgDisconnect();
           throw Error(`Failed to execute query "${query}".\n${e}`);
         });
+    await this.pgDisconnect();
+    return rows;
   }
 
   /**
