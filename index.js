@@ -58,7 +58,6 @@ class PostgresqlDBHelper extends Helper {
    */
   async pgDisconnect() {
     await this.client.end(err => {
-      console.log('client has disconnected');
       if (err) {
         console.error(`error during disconnection. \n ${err.stack}`);
       }
@@ -85,6 +84,32 @@ class PostgresqlDBHelper extends Helper {
     return await this.client.query(query)
         .catch((e) => {
           throw Error(`Failed to execute query "${query}".\n${e}`);
+        });
+  }
+
+  /**
+   * Executes query against a specified connection PostgreSQL and returns result
+   * @returns {Promise<void>}
+   * @param query SQL query to execute
+   * @param connection
+   */
+  async pgExecuteQueryOnDemand(query, connection) {
+    const client = new pg.Client(connection);
+
+    client.connect()
+        .catch((e) => {
+          throw Error(`Failed to open connection.\n${e}`)
+        });
+
+    return await client.query(query)
+        .catch((e) => {
+          throw Error(`Failed to execute query "${query}".\n${e}`);
+        }).finally(() => {
+          client.end(err => {
+            if (err) {
+              console.error(`error during disconnection. \n ${err.stack}`);
+            }
+          })
         });
   }
 }
